@@ -18,5 +18,6 @@ public class Application extends WebMvcConfigurerAdapter {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/audience").setViewName("/audience.html");
         registry.addViewController("/scorekeeper").setViewName("/scorekeeper.html");
+        registry.addViewController("/clock").setViewName("/clock.html");
     }
 }
