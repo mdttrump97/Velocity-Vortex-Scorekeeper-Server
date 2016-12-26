@@ -12,13 +12,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.CopyOnWriteArraySet;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Created by JacobAMason on 12/22/16.
@@ -26,33 +21,23 @@ import java.util.stream.Stream;
 @Controller
 public class ScorekeeperController {
     private SimpMessagingTemplate messenger;
-    private Set<ScoreMessage> scores;
+    private final Scorekeeper scorekeeper = new Scorekeeper();
+
 
     public ScorekeeperController(SimpMessagingTemplate messenger) {
         this.messenger = messenger;
-        initializeScores();
-    }
-
-    private void initializeScores() {
-        scores = Stream.of("red", "blue").flatMap(
-                alliance -> Stream.of("autonomous", "teleop").flatMap(
-                        period -> Stream.of("corner", "center").map(
-                                goal -> new ScoreMessage(alliance, period, goal, 0)
-                        )
-                )
-        ).collect(Collectors.toCollection(CopyOnWriteArraySet::new));
     }
 
     @SubscribeMapping("/scores")
     public List<ScoreMessage> greet() {
-        return new ArrayList<>(scores);
+        return scorekeeper.getScoresAsSendableList();
     }
 
     @MessageMapping("/scores/reset")
     @SendTo("/topic/scores")
     public List<ScoreMessage> reset() {
-        initializeScores();
-        return new ArrayList<>(scores);
+        scorekeeper.clearScores();
+        return scorekeeper.getScoresAsSendableList();
     }
 
     @PostMapping(value = "/scorekeeper/submit", produces = "application/json")
@@ -60,8 +45,7 @@ public class ScorekeeperController {
     @ResponseBody
     public JsonResponse submitScore(@RequestBody ScoreMessage score) {
         messenger.convertAndSend("/topic/scores", Arrays.asList(score));
-        scores.remove(score);
-        scores.add(score);
+        scorekeeper.updateScore(score);
         return new JsonResponse();
     }
 
