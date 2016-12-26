@@ -1,5 +1,8 @@
 package net.jacobmason.VelocityVortexScorekeeperServer;
 
+import net.jacobmason.VelocityVortexScorekeeperServer.messages.ClockAudioMessage;
+import net.jacobmason.VelocityVortexScorekeeperServer.messages.ClockControlMessage;
+import net.jacobmason.VelocityVortexScorekeeperServer.messages.ClockTimeMessage;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;

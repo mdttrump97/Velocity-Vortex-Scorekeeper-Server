@@ -1,4 +1,4 @@
-package net.jacobmason.VelocityVortexScorekeeperServer;
+package net.jacobmason.VelocityVortexScorekeeperServer.messages;
 
 /**
  * Created by JacobAMason on 12/22/16.

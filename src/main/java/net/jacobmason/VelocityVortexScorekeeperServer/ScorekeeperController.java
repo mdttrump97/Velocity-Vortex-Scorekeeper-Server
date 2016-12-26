@@ -1,5 +1,6 @@
 package net.jacobmason.VelocityVortexScorekeeperServer;
 
+import net.jacobmason.VelocityVortexScorekeeperServer.messages.ScoreMessage;
 import org.springframework.http.HttpStatus;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
