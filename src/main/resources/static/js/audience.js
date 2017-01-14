@@ -55,6 +55,14 @@ stompClient.connect({}, function (frame) {
            $("#clock").html("<font color='red'>0:00</font>");
         }
     });
+
+    stompClient.subscribe('/topic/matches/currentMatch', function (match) {
+        match = JSON.parse(match.body);
+        $("#red1").html(match.red1);
+        $("#red2").html(match.red2);
+        $("#blue1").html(match.blue1);
+        $("#blue2").html(match.blue2);
+    });
 });
 
 });
