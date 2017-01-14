@@ -12,6 +12,12 @@
     <script src="js/scorekeeper.js"></script>
 
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/css/bootstrap.min.css">
+    <style>
+    th {
+        text-align:center;
+    }
+
+    </style>
 </head>
 <body>
 <div class="container">
@@ -81,6 +87,29 @@
                 </tbody>
             </table>
         </div>
+    </div>
+    <div class="row">
+        <form id="matches-form">
+            <div class="panel panel-default">
+                <div class="panel-heading" style="position: relative;">
+                    <font size="5">Matches</font>
+                    <b><span id="currentMatch" class="pull-right" style="position: absolute; top: 33%; right: 1em;"></span></b>
+                </div>
+                <table id="matches" class='table table-bordered text-center'>
+                    <thead>
+                    <tr>
+                        <th>Number</th>
+                        <th>Red 1</th>
+                        <th>Red 2</th>
+                        <th>Blue 1</th>
+                        <th>Blue 2</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    </tbody>
+                </table>
+            </div>
+        </form>
     </div>
 </div>
 </body>

@@ -42,17 +42,24 @@ var clockButtonLookup = {
     },
 }
 
+let submitCurrentMatch;
 
 $(function() {
 
 var socket = new SockJS('/scorekeeper/ws');
 var stompClient = Stomp.over(socket);
+
+submitCurrentMatch = function(match) {
+    console.log(match);
+    stompClient.send("/topic/matches/currentMatch", {}, match);
+};
+
 stompClient.connect({}, function (frame) {
     stompClient.subscribe('/topic/scores', function (score) {
         $.each(JSON.parse(score.body), function(i, e) {
             var id = '#' + e.gameMode + "-" + e.alliance + "-" + e.goal;
             $(id).html(e.score);
-        })
+        });
     });
 
     stompClient.subscribe('/topic/clock/time', function (time) {
@@ -61,6 +68,25 @@ stompClient.connect({}, function (frame) {
 
     stompClient.subscribe('/topic/clock/control', function (control) {
         clockButtonLookup[JSON.parse(control.body).control]();
+    });
+
+    stompClient.subscribe('/topic/matches', function (matches) {
+        $.each(JSON.parse(matches.body), function(i, match) {
+            console.log(JSON.stringify(match));
+            $("#matches > tbody:last-child").append(
+                "<tr><td><input onChange='submitCurrentMatch(this.value)' id='match" + match.matchNumber + "' type='radio' name='currentMatch' value='" + JSON.stringify(match) + "'>" +
+                '<label for="match' + match.matchNumber + '">&nbsp' + match.matchNumber + "</label></td><td>" +
+                match.red1 + "</td><td>" + match.red2 + "</td><td>" +
+                match.blue1 + "</td><td>" + match.blue2 + "</td></tr>"
+            );
+        });
+    });
+
+    stompClient.subscribe('/topic/matches/currentMatch', function (match) {
+        match = JSON.parse(match.body);
+        var id = "#match" + match.matchNumber;
+        $(id).prop("checked", true);
+        $("#currentMatch").html("Current Match: " + match.matchNumber)
     });
 });
 
@@ -75,11 +101,11 @@ $("#start-teleop").click(function () {
 
 $("#reset-clock").click(function () {
     stompClient.send("/topic/clock/control", {}, JSON.stringify({"control": "reset-clock"}));
-})
+});
 
 $("#stop-clock").click(function () {
     stompClient.send("/topic/clock/control", {}, JSON.stringify({"control": "stop-clock"}));
-})
+});
 
 $('[data-toggle=confirmation]').confirmation({
   rootSelector: '[data-toggle=confirmation]',
@@ -88,6 +114,6 @@ $('[data-toggle=confirmation]').confirmation({
 
 $("#clear-scores").on("confirmed.bs.confirmation", function() {
     stompClient.send("/topic/scores/reset", {}, JSON.stringify({"reset": "reset"}));
-})
+});
 
 });
