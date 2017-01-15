@@ -91,7 +91,7 @@ function stompError(error) {
     $("#disconnect-alert").fadeIn();
     $("#grey-out-overlay").fadeIn();
     setTimeout(stompConnect, 1000);
-    if (localTime != 150 && localTime != 120 && localTime != 0) {
+    if (!isNaN(localTime) && localTime != 150 && localTime != 120 && localTime != 0) {
         secondsToClockDisplay(localTime-1);
     }
 };

@@ -30,6 +30,8 @@ function stompConnect() {
 };
 
 stompSuccess = function (frame) {
+    $("#error-indicator").hide();
+
     stompClient.subscribe('/topic/scores', function (score) {
         $.each(JSON.parse(score.body), function(i, e) {
             var id = '#' + e.gameMode + "-" + e.alliance + "-" + e.goal;
@@ -63,7 +65,7 @@ stompSuccess = function (frame) {
 stompError = function (error) {
     $("#error-indicator").show();
     setTimeout(stompConnect, 1000);
-    if (localTime != 150 && localTime != 120 && localTime != 0) {
+    if (!isNaN(localTime) && localTime != 150 && localTime != 120 && localTime != 0) {
         secondsToClockDisplay(localTime-1);
     }
 };

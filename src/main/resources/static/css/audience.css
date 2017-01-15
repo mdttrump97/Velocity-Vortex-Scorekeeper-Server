@@ -2,6 +2,11 @@
 4:3 aspect ratio
 */
 
+body {
+    text-shadow: 0.3vw 0.3vw 0.3vw rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
 .clock-position {
     position: absolute;
     margin-left: auto;
@@ -55,20 +60,20 @@
 
 .auto-blue-center-position {
     position: absolute;
-    left: 1vw;
-    top: 29.5vw;
+    left: 1.2vw;
+    top: 25vw;
     width: 10.5vw;
-    font-size: 9vw;
+    font-size: 15vw;
     color: white;
     text-align: center;
 }
 
 .auto-blue-corner-position {
     position: absolute;
-    left: 1vw;
-    top: 51vw;
+    left: 1.2vw;
+    top: 47vw;
     width: 10.5vw;
-    font-size: 9vw;
+    font-size: 15vw;
     color: white;
     text-align: center;
 }
@@ -76,9 +81,9 @@
 .auto-red-center-position {
     position: absolute;
     right: 1vw;
-    top: 29.5vw;
+    top: 25vw;
     width: 10.5vw;
-    font-size: 9vw;
+    font-size: 15vw;
     color: white;
     text-align: center;
 }
@@ -86,9 +91,9 @@
 .auto-red-corner-position {
     position: absolute;
     right: 1vw;
-    top: 51vw;
+    top: 47vw;
     width: 10.5vw;
-    font-size: 9vw;
+    font-size: 15vw;
     color: white;
     text-align: center;
 }
@@ -96,9 +101,9 @@
 .teleop-blue-center-position {
     position: absolute;
     left: 13vw;
-    top: 29.5vw;
+    top: 25vw;
     width: 15.5vw;
-    font-size: 9vw;
+    font-size: 15vw;
     color: white;
     text-align: center;
 }
@@ -106,9 +111,9 @@
 .teleop-blue-corner-position {
     position: absolute;
     left: 13vw;
-    top: 51vw;
+    top: 47vw;
     width: 15.5vw;
-    font-size: 9vw;
+    font-size: 15vw;
     color: white;
     text-align: center;
 }
@@ -116,9 +121,9 @@
 .teleop-red-center-position {
     position: absolute;
     right: 13vw;
-    top: 29.5vw;
+    top: 25vw;
     width: 15.5vw;
-    font-size: 9vw;
+    font-size: 15vw;
     color: white;
     text-align: center;
 }
@@ -126,9 +131,9 @@
 .teleop-red-corner-position {
     position: absolute;
     right: 13vw;
-    top: 51vw;
+    top: 47vw;
     width: 15.5vw;
-    font-size: 9vw;
+    font-size: 15vw;
     color: white;
     text-align: center;
 }
@@ -145,8 +150,8 @@
     margin-right: auto;
     left: 0;
     right: 0;
-    top: -3vw;
-    font-size: 15vw;
+    top: -6vw;
+    font-size: 19vw;
     text-align: center;
 }
 
@@ -193,9 +198,9 @@
 .auto-blue-center-position {
     position: absolute;
     left: 1vw;
-    top: 18.5vw;
+    top: 16.5vw;
     width: 10.5vw;
-    font-size: 9vw;
+    font-size: 12vw;
     color: white;
     text-align: center;
 }
@@ -203,9 +208,9 @@
 .auto-blue-corner-position {
     position: absolute;
     left: 1vw;
-    top: 36.6vw;
+    top: 34.8vw;
     width: 10.5vw;
-    font-size: 9vw;
+    font-size: 12vw;
     color: white;
     text-align: center;
 }
@@ -213,9 +218,9 @@
 .auto-red-center-position {
     position: absolute;
     right: 1vw;
-    top: 18.5vw;
+    top: 16.5vw;
     width: 10.5vw;
-    font-size: 9vw;
+    font-size: 12vw;
     color: white;
     text-align: center;
 }
@@ -223,49 +228,49 @@
 .auto-red-corner-position {
     position: absolute;
     right: 1vw;
-    top: 36.6vw;
+    top: 34.8vw;
     width: 10.5vw;
-    font-size: 9vw;
+    font-size: 12vw;
     color: white;
     text-align: center;
 }
 
 .teleop-blue-center-position {
     position: absolute;
-    left: 13vw;
-    top: 18.5vw;
+    left: 13.3vw;
+    top: 16.5vw;
     width: 15.5vw;
-    font-size: 9vw;
+    font-size: 12vw;
     color: white;
     text-align: center;
 }
 
 .teleop-blue-corner-position {
     position: absolute;
-    left: 13vw;
-    top: 36.6vw;
+    left: 13.3vw;
+    top: 34.8vw;
     width: 15.5vw;
-    font-size: 9vw;
+    font-size: 12vw;
     color: white;
     text-align: center;
 }
 
 .teleop-red-center-position {
     position: absolute;
-    right: 13vw;
-    top: 18.5vw;
+    right: 13.3vw;
+    top: 16.5vw;
     width: 15.5vw;
-    font-size: 9vw;
+    font-size: 12vw;
     color: white;
     text-align: center;
 }
 
 .teleop-red-corner-position {
     position: absolute;
-    right: 13vw;
-    top: 36.6vw;
+    right: 13.3vw;
+    top: 34.8vw;
     width: 15.5vw;
-    font-size: 9vw;
+    font-size: 12vw;
     color: white;
     text-align: center;
 }

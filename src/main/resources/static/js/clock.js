@@ -9,6 +9,7 @@ function stompConnect() {
 
 function stompSuccess(frame) {
     $("#error-indicator").hide();
+
     stompClient.subscribe('/topic/clock/time', function (time) {
         secondsToClockDisplay(JSON.parse(time.body).time);
     });
@@ -23,7 +24,6 @@ function stompSuccess(frame) {
 function stompError(error) {
     $("#error-indicator").show();
     setTimeout(stompConnect, 1000);
-    console.log(localTime);
     if (!isNaN(localTime) && localTime != 150 && localTime != 120 && localTime != 0) {
         secondsToClockDisplay(localTime-1);
     }
