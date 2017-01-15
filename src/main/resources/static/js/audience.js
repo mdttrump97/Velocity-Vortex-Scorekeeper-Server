@@ -1,12 +1,3 @@
-function secondsToClockDisplay(time) {
-    var sec_num = parseInt(time, 10); // don't forget the second param
-    var minutes = Math.floor(sec_num / 60);
-    var seconds = sec_num - (minutes * 60);
-
-    if (seconds < 10) {seconds = "0"+seconds;}
-    return minutes+':'+seconds;
-}
-
 var audio = {
     "start-autonomous": new Audio('sound/startauto.wav'),
     "end-autonomous": new Audio('sound/endauto.wav'),
@@ -15,8 +6,6 @@ var audio = {
     "time-running-out": new Audio('sound/30sec.wav'),
     "e-stop": new Audio('sound/estop.wav'),
 }
-
-
 
 $(function(){
 
@@ -31,10 +20,16 @@ function aspectRatioChange(mq) {
     }
 }
 
+let stompClient;
+let stompSuccess;
+let stompError;
+function stompConnect() {
+    var socket = new SockJS('/scorekeeper/ws');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, stompSuccess, stompError);
+};
 
-var socket = new SockJS('/scorekeeper/ws');
-var stompClient = Stomp.over(socket);
-stompClient.connect({}, function (frame) {
+stompSuccess = function (frame) {
     stompClient.subscribe('/topic/scores', function (score) {
         $.each(JSON.parse(score.body), function(i, e) {
             var id = '#' + e.gameMode + "-" + e.alliance + "-" + e.goal;
@@ -43,7 +38,7 @@ stompClient.connect({}, function (frame) {
     });
 
     stompClient.subscribe('/topic/clock/time', function (time) {
-        $("#clock").html(secondsToClockDisplay(JSON.parse(time.body).time));
+        secondsToClockDisplay(JSON.parse(time.body).time);
     });
 
     stompClient.subscribe('/topic/clock/audio', function (audioFile) {
@@ -63,6 +58,16 @@ stompClient.connect({}, function (frame) {
         $("#blue1").html(match.blue1);
         $("#blue2").html(match.blue2);
     });
-});
+};
+
+stompError = function (error) {
+    $("#error-indicator").show();
+    setTimeout(stompConnect, 1000);
+    if (localTime != 150 && localTime != 120 && localTime != 0) {
+        secondsToClockDisplay(localTime-1);
+    }
+};
+
+stompConnect();
 
 });

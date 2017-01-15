@@ -8,12 +8,13 @@
     <script src="webjars/bootstrap/bootstrap.min.js"></script>
     <script src="webjars/sockjs-client/sockjs.min.js"></script>
     <script src="webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="js/common.js"></script>
     <script src="js/clock.js"></script>
 
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/css/bootstrap.min.css">
 </head>
 <body style="overflow: hidden;">
-<p id="clock" style="font-size: 50vw; height: 100vh; display: flex; justify-content: center; align-items: center;">
-    2:30</p>
+<div id="error-indicator" style="display: none; position: fixed; width: 4em; height: 4em; right: 0; bottom: 0; background-color: red;"></div>
+<p id="clock" style="font-size: 50vw; height: 100vh; display: flex; justify-content: center; align-items: center;">2:30</p>
 </body>
 </html>

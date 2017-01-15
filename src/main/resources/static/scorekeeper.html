@@ -9,6 +9,7 @@
     <script src="js/bootstrap-confirmation.min.js"></script>
     <script src="webjars/sockjs-client/sockjs.min.js"></script>
     <script src="webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="js/common.js"></script>
     <script src="js/scorekeeper.js"></script>
 
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/css/bootstrap.min.css">
@@ -16,11 +17,14 @@
     th {
         text-align:center;
     }
-
     </style>
 </head>
 <body>
+<div id="grey-out-overlay" class="overlay" style="background: #e9e9e9; display: none; position: fixed; top: 0; right: 0; bottom: 0; left: 0; opacity: 0.5; z-index: 1;"></div>
 <div class="container">
+    <div id="disconnect-alert" class="alert alert-danger" role="alert" style="display: none; position: fixed; margin-top: 1em; margin-left: auto; margin-right: auto; z-index: 2; left: 0; right: 0; max-width: 34em;">
+        <strong>You are disconnected from the server.</strong> Attempting to reconnect...
+    </div>
     <div class="page-header">
         <h1>Scorekeeper</h1>
     </div>
@@ -93,7 +97,8 @@
             <div class="panel panel-default">
                 <div class="panel-heading" style="position: relative;">
                     <font size="5">Matches</font>
-                    <b><span id="currentMatch" class="pull-right" style="position: absolute; top: 33%; right: 1em;"></span></b>
+                    <b><span id="currentMatch" class="pull-right"
+                             style="position: absolute; top: 33%; right: 1em;"></span></b>
                 </div>
                 <table id="matches" class='table table-bordered text-center'>
                     <thead>

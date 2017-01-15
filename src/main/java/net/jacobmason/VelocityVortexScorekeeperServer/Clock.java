@@ -54,13 +54,15 @@ public class Clock {
     }
 
     public void reset() {
-        if (service.isDone()) {
+        if (service == null || service.isDone()) {
             clockController.sendTime(150);
         }
     }
 
     public void eStop() {
-        service.cancel(true);
+        if (service != null) {
+            service.cancel(true);
+        }
         clockController.sendAudio("e-stop");
     }
 }

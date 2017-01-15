@@ -1,12 +1,3 @@
-function secondsToClockDisplay(time) {
-    var sec_num = parseInt(time, 10); // don't forget the second param
-    var minutes = Math.floor(sec_num / 60);
-    var seconds = sec_num - (minutes * 60);
-
-    if (seconds < 10) {seconds = "0"+seconds;}
-    return minutes+':'+seconds;
-}
-
 var clockButtonLookup = {
     "start-autonomous": function () {
         $("#start-autonomous").prop('disabled', true);
@@ -46,15 +37,22 @@ let submitCurrentMatch;
 
 $(function() {
 
-var socket = new SockJS('/scorekeeper/ws');
-var stompClient = Stomp.over(socket);
-
 submitCurrentMatch = function(match) {
-    console.log(match);
     stompClient.send("/topic/matches/currentMatch", {}, match);
 };
 
-stompClient.connect({}, function (frame) {
+let stompClient;
+
+function stompConnect() {
+    var socket = new SockJS('/scorekeeper/ws');
+    stompClient = Stomp.over(socket);
+    stompClient.connect({}, stompSuccess, stompError);
+};
+
+function stompSuccess(frame) {
+    $("#disconnect-alert").fadeOut();
+    $("#grey-out-overlay").fadeOut();
+
     stompClient.subscribe('/topic/scores', function (score) {
         $.each(JSON.parse(score.body), function(i, e) {
             var id = '#' + e.gameMode + "-" + e.alliance + "-" + e.goal;
@@ -63,7 +61,7 @@ stompClient.connect({}, function (frame) {
     });
 
     stompClient.subscribe('/topic/clock/time', function (time) {
-        $("#clock").html(secondsToClockDisplay(JSON.parse(time.body).time));
+        secondsToClockDisplay(JSON.parse(time.body).time);
     });
 
     stompClient.subscribe('/topic/clock/control', function (control) {
@@ -72,7 +70,6 @@ stompClient.connect({}, function (frame) {
 
     stompClient.subscribe('/topic/matches', function (matches) {
         $.each(JSON.parse(matches.body), function(i, match) {
-            console.log(JSON.stringify(match));
             $("#matches > tbody:last-child").append(
                 "<tr><td><input onChange='submitCurrentMatch(this.value)' id='match" + match.matchNumber + "' type='radio' name='currentMatch' value='" + JSON.stringify(match) + "'>" +
                 '<label for="match' + match.matchNumber + '">&nbsp' + match.matchNumber + "</label></td><td>" +
@@ -88,8 +85,18 @@ stompClient.connect({}, function (frame) {
         $(id).prop("checked", true);
         $("#currentMatch").html("Current Match: " + match.matchNumber)
     });
-});
+};
 
+function stompError(error) {
+    $("#disconnect-alert").fadeIn();
+    $("#grey-out-overlay").fadeIn();
+    setTimeout(stompConnect, 1000);
+    if (localTime != 150 && localTime != 120 && localTime != 0) {
+        secondsToClockDisplay(localTime-1);
+    }
+};
+
+stompConnect();
 
 $("#start-autonomous").click(function () {
     stompClient.send("/topic/clock/control", {}, JSON.stringify({"control": "start-autonomous"}));

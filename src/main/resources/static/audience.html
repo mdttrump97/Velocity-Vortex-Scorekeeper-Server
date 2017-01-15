@@ -8,6 +8,7 @@
     <script src="webjars/bootstrap/bootstrap.min.js"></script>
     <script src="webjars/sockjs-client/sockjs.min.js"></script>
     <script src="webjars/stomp-websocket/stomp.min.js"></script>
+    <script src="js/common.js"></script>
     <script src="js/audience.js"></script>
 
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/css/bootstrap.min.css">
@@ -15,6 +16,7 @@
 </head>
 <body>
 <div>
+    <div id="error-indicator" style="display: none; position: fixed; width: 4em; height: 4em; right: 0; bottom: 0; background-color: red;"></div>
     <img id="background-image" src="images/bg16x9.png" style="max-width: 100%;">
     <p id="clock" class="clock-position">2:30</p>
     <p id="red1" class="red1-position">-</p>
