@@ -61,9 +61,9 @@ body {
 .auto-blue-center-position {
     position: absolute;
     left: 1.2vw;
-    top: 25vw;
+    top: 26.4vw;
     width: 10.5vw;
-    font-size: 15vw;
+    font-size: 13vw;
     color: white;
     text-align: center;
 }
@@ -71,9 +71,9 @@ body {
 .auto-blue-corner-position {
     position: absolute;
     left: 1.2vw;
-    top: 47vw;
+    top: 48.2vw;
     width: 10.5vw;
-    font-size: 15vw;
+    font-size: 13vw;
     color: white;
     text-align: center;
 }
@@ -81,9 +81,9 @@ body {
 .auto-red-center-position {
     position: absolute;
     right: 1vw;
-    top: 25vw;
+    top: 26.4vw;
     width: 10.5vw;
-    font-size: 15vw;
+    font-size: 13vw;
     color: white;
     text-align: center;
 }
@@ -91,49 +91,49 @@ body {
 .auto-red-corner-position {
     position: absolute;
     right: 1vw;
-    top: 47vw;
+    top: 48.2vw;
     width: 10.5vw;
-    font-size: 15vw;
+    font-size: 13vw;
     color: white;
     text-align: center;
 }
 
 .teleop-blue-center-position {
     position: absolute;
-    left: 13vw;
-    top: 25vw;
+    left: 13.3vw;
+    top: 26.4vw;
     width: 15.5vw;
-    font-size: 15vw;
+    font-size: 13vw;
     color: white;
     text-align: center;
 }
 
 .teleop-blue-corner-position {
     position: absolute;
-    left: 13vw;
-    top: 47vw;
+    left: 13.3vw;
+    top: 48.2vw;
     width: 15.5vw;
-    font-size: 15vw;
+    font-size: 13vw;
     color: white;
     text-align: center;
 }
 
 .teleop-red-center-position {
     position: absolute;
-    right: 13vw;
-    top: 25vw;
+    right: 13.3vw;
+    top: 26.4vw;
     width: 15.5vw;
-    font-size: 15vw;
+    font-size: 13vw;
     color: white;
     text-align: center;
 }
 
 .teleop-red-corner-position {
     position: absolute;
-    right: 13vw;
-    top: 47vw;
+    right: 13.3vw;
+    top: 48.2vw;
     width: 15.5vw;
-    font-size: 15vw;
+    font-size: 13vw;
     color: white;
     text-align: center;
 }
