@@ -42,22 +42,6 @@ public class ScoreMessage {
         return score;
     }
 
-    public void setAlliance(String alliance) {
-        this.alliance = alliance;
-    }
-
-    public void setGameMode(String gameMode) {
-        this.gameMode = gameMode;
-    }
-
-    public void setGoal(String goal) {
-        this.goal = goal;
-    }
-
-    public void setScore(int score) {
-        this.score = score;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

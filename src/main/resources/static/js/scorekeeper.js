@@ -33,11 +33,12 @@ var clockButtonLookup = {
     },
 }
 
-let submitCurrentMatch;
+let submitMatch;
+var currentMatchNumber = 1;
 
 $(function() {
 
-submitCurrentMatch = function(match) {
+submitMatch = function(match) {
     stompClient.send("/topic/matches/currentMatch", {}, match);
 };
 
@@ -71,7 +72,7 @@ function stompSuccess(frame) {
     stompClient.subscribe('/topic/matches', function (matches) {
         $.each(JSON.parse(matches.body), function(i, match) {
             $("#matches > tbody:last-child").append(
-                "<tr><td><input onChange='submitCurrentMatch(this.value)' id='match" + match.matchNumber + "' type='radio' name='currentMatch' value='" + JSON.stringify(match) + "'>" +
+                "<tr><td><input onChange='submitMatch(this.value)' id='match" + match.matchNumber + "' type='radio' name='currentMatch' value='" + JSON.stringify(match) + "'>" +
                 '<label for="match' + match.matchNumber + '">&nbsp' + match.matchNumber + "</label></td><td>" +
                 match.red1 + "</td><td>" + match.red2 + "</td><td>" +
                 match.blue1 + "</td><td>" + match.blue2 + "</td></tr>"
@@ -83,7 +84,8 @@ function stompSuccess(frame) {
         match = JSON.parse(match.body);
         var id = "#match" + match.matchNumber;
         $(id).prop("checked", true);
-        $("#currentMatch").html("Current Match: " + match.matchNumber)
+        currentMatchNumber = match.matchNumber;
+        $("#currentMatch").html("Current Match: " + currentMatchNumber)
     });
 };
 
@@ -121,6 +123,12 @@ $('[data-toggle=confirmation]').confirmation({
 
 $("#clear-scores").on("confirmed.bs.confirmation", function() {
     stompClient.send("/topic/scores/reset", {}, JSON.stringify({"reset": "reset"}));
+});
+
+$("#next-match").click(function () {
+    currentMatchNumber += 1;
+    var id = "#match" + currentMatchNumber;
+    submitMatch($(id).val());
 });
 
 });
