@@ -17,20 +17,19 @@ import java.util.List;
 public class MatchContoller {
     private SimpMessagingTemplate messenger;
     private List<Match> matches;
-    private Match currentMatch;
+    private Match currentMatch = new Match(0, 0, 0, 0, 0);
 
     public MatchContoller(SimpMessagingTemplate messenger) {
         this.messenger = messenger;
 
         try {
             matches = Match.readMatchFile("matches.txt");
+            currentMatch = matches.get(0);
         } catch (FileNotFoundException e) {
             System.out.println("Can't find matches.txt\nPut it in the same folder as this jar.");
         } catch (IOException e) {
             System.out.println("Some weird line reading error from matches.txt");
         }
-
-        currentMatch = matches.get(0);
     }
 
     @SubscribeMapping("/matches")
