@@ -14,9 +14,9 @@
 
     <link rel="stylesheet" type="text/css" href="webjars/bootstrap/css/bootstrap.min.css">
     <style>
-    th {
+        th {
         text-align:center;
-    }
+        }
 
 
     </style>
@@ -109,7 +109,17 @@
             </div>
             <form id="matches-form">
                 <table id="matches" class='table table-bordered text-center'>
-                    <thead>
+                    <tr>
+                        <td>
+                            <input onChange='submitCustomMatch()' id='matchCustom' type='radio' name='currentMatch'
+                                   value='" + JSON.stringify(match) + "'>
+                            <label for="matchCustom">&nbsp;Custom&nbsp;Match</label>
+                        </td>
+                        <td><input type="text" class="customButton" id="custom-red1" placeholder="Red 1"></td>
+                        <td><input type="text" id="custom-red2" placeholder="Red 2"></td>
+                        <td><input type="text" id="custom-blue1" placeholder="Blue 1"></td>
+                        <td><input type="text" id="custom-blue2" placeholder="Blue 2"></td>
+                    </tr>
                     <tr>
                         <th>Number</th>
                         <th>Red 1</th>
@@ -117,7 +127,6 @@
                         <th>Blue 1</th>
                         <th>Blue 2</th>
                     </tr>
-                    </thead>
                     <tbody>
                     </tbody>
                 </table>

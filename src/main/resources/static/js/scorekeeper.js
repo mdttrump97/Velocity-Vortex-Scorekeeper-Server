@@ -42,6 +42,16 @@ submitMatch = function(match) {
     stompClient.send("/topic/matches/currentMatch", {}, match);
 };
 
+submitCustomMatch = function() {
+    var match = {};
+    match.red1 = Number($("#custom-red1").val());
+    match.red2 = Number($("#custom-red2").val());
+    match.blue1 = Number($("#custom-blue1").val());
+    match.blue2 = Number($("#custom-blue2").val());
+    match.matchNumber = -1;
+    stompClient.send("/topic/matches/currentMatch", {}, JSON.stringify(match));
+};
+
 let stompClient;
 
 function stompConnect() {
@@ -85,7 +95,11 @@ function stompSuccess(frame) {
         var id = "#match" + match.matchNumber;
         $(id).prop("checked", true);
         currentMatchNumber = match.matchNumber;
-        $("#currentMatch").html("Current Match: " + currentMatchNumber)
+        if (match.matchNumber === -1) {
+            $("#currentMatch").html("Current Match: Custom");
+        } else {
+            $("#currentMatch").html("Current Match: " + currentMatchNumber);
+        }
     });
 };
 
@@ -126,9 +140,18 @@ $("#clear-scores").on("confirmed.bs.confirmation", function() {
 });
 
 $("#next-match").click(function () {
+    if (currentMatchNumber === -1) {
+        return;
+    }
     currentMatchNumber += 1;
     var id = "#match" + currentMatchNumber;
     submitMatch($(id).val());
+});
+
+$("#custom-red1,#custom-red2,#custom-blue1,#custom-blue2").change( function() {
+    if (currentMatchNumber === -1) {
+        submitCustomMatch();
+    }
 });
 
 });
